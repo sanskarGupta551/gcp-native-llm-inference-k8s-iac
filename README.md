@@ -40,7 +40,11 @@ This repository provides everything required to deploy and manage LLM inference 
 
 #### 1. Open in Google Cloud Shell
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg.com/cloudshell/open?git_repo=https://github.com/yourusername/gcp-native-llm-inference-k8s-iac&open_in_editor=true&working_dir=gcp-native-ll yourusername with your actual GitHub username.
+## One-Click Deployment
+
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/yourusername/gcp-native-llm-inference-k8s-iac&open_in_editor=true&working_dir=gcp-native-llm-inference-k8s-iac)
+
+
 
 #### 2. Follow the On-Screen Prompts
 
