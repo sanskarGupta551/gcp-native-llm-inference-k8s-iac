@@ -35,13 +35,53 @@
 ### Project Structure
 
 ```
-/
+llm-cloud-agnostic-k8s-terraform/
+│
 ├── deployments/
-│   ├── gcp/       # Terraform for GKE/GCP
-│   ├── aws/       # Terraform for EKS/AWS
-│   └── azure/     # Terraform for AKS/Azure
-├── streamlit_app/ # Local SPA frontend code
-└── README.md, docs, scripts...
+│   ├── gcp/                       # Terraform configs and scripts for Google Cloud (GKE)
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   ├── terraform.tfvars.example
+│   │   ├── cleanup.sh             # Cleanup script for GCP
+│   │   └── README.md              # GCP-specific deployment and cleanup instructions
+│   │
+│   ├── aws/                       # Terraform configs and scripts for AWS (EKS)
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   ├── terraform.tfvars.example
+│   │   ├── cleanup.sh             # Cleanup script for AWS
+│   │   └── README.md              # AWS-specific deployment and cleanup instructions
+│   │
+│   └── azure/                     # Terraform configs and scripts for Azure (AKS)
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       ├── terraform.tfvars.example
+│       ├── cleanup.sh             # Cleanup script for Azure
+│       └── README.md              # Azure-specific deployment and cleanup instructions
+│
+├── streamlit_app/                 # Local Streamlit web client code (frontend)
+│   ├── app.py                    # Main Streamlit app entrypoint
+│   ├── requirements.txt          # Python dependencies for frontend
+│   ├── utils.py                  # Utility functions (e.g., HuggingFace API calls)
+│   └── README.md                 # Usage and run instructions for the Streamlit app
+│
+├── api_backend/                  # Optional: Backend API service (e.g., FastAPI) if separated from frontend
+│   ├── main.py                   # API backend server code
+│   ├── requirements.txt
+│   └── README.md
+│
+├── docs/                         # Documentation files
+│   ├── architecture.md           # System design and architecture overview
+│   ├── usage.md                  # Detailed user guide and workflow
+│   ├── security.md               # Security and best practices details
+│   └── troubleshooting.md        # Common issues and resolutions
+│
+├── .gitignore                    # Git ignore patterns
+├── LICENSE                      # License file (e.g., MIT)
+└── README.md                    # Project summary, quickstart, and overview for GitHub
 ```
 
 ## Typical User Flow
