@@ -63,25 +63,25 @@ llm-cloud-agnostic-k8s-terraform/
 │       └── README.md              # Azure-specific deployment and cleanup instructions
 │
 ├── streamlit_app/                 # Local Streamlit web client code (frontend)
-│   ├── app.py                    # Main Streamlit app entrypoint
-│   ├── requirements.txt          # Python dependencies for frontend
-│   ├── utils.py                  # Utility functions (e.g., HuggingFace API calls)
-│   └── README.md                 # Usage and run instructions for the Streamlit app
+│   ├── app.py                     # Main Streamlit app entrypoint
+│   ├── requirements.txt           # Python dependencies for frontend
+│   ├── utils.py                   # Utility functions (e.g., HuggingFace API calls)
+│   └── README.md                  # Usage and run instructions for the Streamlit app
 │
-├── api_backend/                  # Optional: Backend API service (e.g., FastAPI) if separated from frontend
-│   ├── main.py                   # API backend server code
+├── api_backend/                   # Optional: Backend API service (e.g., FastAPI) if separated from frontend
+│   ├── main.py                    # API backend server code
 │   ├── requirements.txt
 │   └── README.md
 │
-├── docs/                         # Documentation files
-│   ├── architecture.md           # System design and architecture overview
-│   ├── usage.md                  # Detailed user guide and workflow
-│   ├── security.md               # Security and best practices details
-│   └── troubleshooting.md        # Common issues and resolutions
+├── docs/                          # Documentation files
+│   ├── architecture.md            # System design and architecture overview
+│   ├── usage.md                   # Detailed user guide and workflow
+│   ├── security.md                # Security and best practices details
+│   └── troubleshooting.md         # Common issues and resolutions
 │
-├── .gitignore                    # Git ignore patterns
-├── LICENSE                      # License file (e.g., MIT)
-└── README.md                    # Project summary, quickstart, and overview for GitHub
+├── .gitignore                     # Git ignore patterns
+├── LICENSE                        # License file (e.g., MIT)
+└── README.md                      # Project summary, quickstart, and overview for GitHub
 ```
 
 ## Typical User Flow
