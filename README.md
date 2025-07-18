@@ -1,140 +1,69 @@
-# gcp-native-llm-inference-k8s-iac
+# llm-cloud-agnostic-k8s-terraform
 
-GCP-native Infrastructure-as-Code (IaC) automation for deploying and managing Large Language Model (LLM) inference and an interactive Streamlit UI on Kubernetes (K8s) clusters, using fully native Google Cloud services—scalable, one-click, and no-code via Cloud Shell.
+**Cloud-agnostic, self-cleaning LLM serving with Kubernetes & Terraform — deploy, chat, and manage public Hugging Face models on AWS, GCP, or Azure.**
 
-## Overview
+## 🌟 Project Overview
 
-This repository provides everything required to deploy and manage LLM inference on Google Kubernetes Engine (GKE), orchestrated by Terraform (Google Cloud-native IaC), with a dynamic, user-friendly Streamlit web interface. Entirely GCP-native, it enables seamless provisioning, secure resource management, and automated serving of open-source LLMs sourced from HuggingFace, all through your browser.
+**llm-cloud-agnostic-k8s-terraform** lets you launch, interact with, and safely destroy a large language model (LLM) cloud infrastructure—end-to-end—on your favorite cloud platform (Google Cloud, AWS, or Azure) using Kubernetes, GPUs, and modern MLOps best practices.  
+Run a local Streamlit app to select, deploy, and chat with public Hugging Face LLMs in a live, production-like setup.
 
-## Features
+## 🚀 Features
 
-- **GCP-Native Only:** No cross-cloud dependencies; all infrastructure, authentication, and pipeline automation use Google Cloud best practices.
-- **One-Click, No-Code Deployment:**  
-  Instant onboarding using the "Open in Cloud Shell" button for completely hands-off end-to-end setup.
-- **Google Kubernetes Engine (GKE):**  
-  LLM model servers and the Streamlit UI run as scalable pods/services with Google-native security and networking.
-- **Terraform (GCP modules):**  
-  All infrastructure—GKE clusters, IAM, networking, container registry, and backend resources—provisioned with Google’s own Terraform provider and modules.
-- **Dynamic LLM Selection & Hot-Swap:**  
-  The Streamlit UI auto-fetches all public, compliant HuggingFace LLMs.  
-  Users can:
-  - Pick and deploy any available model,
-  - Tear down previous models automatically,
-  - Reset chat instantly with each switch.
-- **Reset Chat Functionality:**  
-  "Reset Chat" button always accessible to clear the session for a fresh interaction.
-- **IAM, Networking, and Cost Controls:**  
-  Utilizes GCP-native identity, security, private networking, and cost management practices.
-- **Extensible:**  
-  Easily customize hardware profiles, GKE nodepools, API scopes, and add Vertex AI or other GCP services as needed.
+- **Cloud Agnostic:** Provision GKE, EKS, or AKS clusters via Terraform for GCP, AWS, or Azure.
+- **Production-grade Serving:** GPU-enabled LLM inference with high security, dynamic scaling, and observability.
+- **Modern User Experience:** Local Streamlit chat interface with dynamic Hugging Face model listing, one-click deployment, and context-aware conversations.
+- **Self-cleaning Infrastructure:**  
+  - **Auto Idle Cleanup** – resources are auto-destroyed after inactivity  
+  - **Manual “Clean-up Resources” Button** in the UI  
+  - **Cleanup scripts** for every provider  
+- **Security First:** Cloud-native secrets, private networking, role-based access.
+- **Easy Teardown, Clear Documentation, No Hidden Costs!**
 
-## Quick Start
+## 🏗️ Architecture
 
-### Prerequisites
+- **Kubernetes Cluster (GKE/EKS/AKS):** GPU-enabled LLM inference backend (vLLM, TGI).
+- **Cloud-native services:** Artifact/Container registry, secret manager, monitoring/logging, load balancer.
+- **Streamlit Web App (Local):** Dropdown Hugging Face model selector, deploy/reset chat buttons, chat interface, real-time context.
+- **Multi-layered cleanup:** Idle auto-destroy, manual in-app button, and scripts.
 
-- Google (GCP) account with billing enabled and project/organization permissions
-- IAM roles: Owner/Editor or roles for GKE Admin, Compute Admin, Service Account Admin, and Artifact Registry access
-- [Optional] Basic familiarity with GKE, GCP Console
+## ⚡ Quickstart
 
-### One-Click Deployment
+```bash
+# 1. Choose your cloud provider and prepare credentials (see the relevant folder's README)
+cd deployments/gcp   # or aws or azure
 
-#### 1. Open in Google Cloud Shell
+# 2. Deploy (edit variables as needed)
+terraform init
+terraform apply
 
-## One-Click Deployment
+# 3. The local Streamlit UI launches automatically!
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/yourusername/gcp-native-llm-inference-k8s-iac&open_in_editor=true&working_dir=gcp-native-llm-inference-k8s-iac)
+# 4. Select, deploy, and chat with an LLM via the web app
 
-
-
-#### 2. Follow the On-Screen Prompts
-
-- **Auth and Project Selection:**  
-  If prompted, log in to your Google account and choose the target project.
-- **Run the Deployment Script:**  
-  Cloud Shell may auto-prompt; otherwise, run:
-  ```sh
-  ./scripts/deploy.sh
-  ```
-- The script will:
-  - Enable required GCP APIs (Kubernetes Engine, Compute, Artifact Registry, IAM, etc.)
-  - Provision the GKE cluster and networking
-  - Build/push required container images (if needed)
-  - Apply Kubernetes manifests for the LLM server and Streamlit app
-  - Output the public URL of your Streamlit web interface
-
-#### 3. Access the Streamlit Web Interface
-
-- Click the provided URL in your Cloud Shell output to launch the inference UI.
-
-#### 4. Use the Application
-
-- **Model Selection:**  
-  At the top of the Streamlit app, use the dropdown to browse auto-fetched public HuggingFace LLMs.
-- **Deploy:**  
-  Select any model, click **Use** to deploy (the previous deployment is replaced, and chat resets automatically).
-- **Inference:**  
-  Enter a prompt and view the model’s response.  
-  Click **Reset Chat** at any time to start fresh with the current model.
-
-## Directory Structure
-
-```
-gcp-native-llm-inference-k8s-iac/
-│
-├── README.md                           # Project overview and usage
-├── LICENSE                             # MIT License
-├── .gitignore
-│
-├── terraform/                          # GCP-native IaC configuration
-│   ├── main.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   ├── providers.tf
-│   ├── versions.tf
-│   ├── modules/                        # (Optional) Custom/shared modules
-│
-├── k8s/                                # GKE deployment manifests
-│   ├── deployment.yaml                 # LLM server deployment spec
-│   ├── service.yaml                    # Model endpoint service
-│   ├── streamlit.yaml                  # Streamlit app deployment
-│   ├── streamlit-service.yaml
-│   ├── configmap.yaml
-│   └── hpa.yaml                        # (Optional) Autoscaling
-│
-├── streamlit_app/                      # Streamlit webapp source
-│   ├── app.py
-│   ├── requirements.txt
-│   ├── huggingface_helpers.py
-│   └── assets/                         # (Optional) UI static files
-│
-├── scripts/
-│   ├── deploy.sh                       # End-to-end infra & app setup
-│   ├── destroy.sh                      # Full teardown script
-│
-├── docs/
-├── assets/
+# 5. CLEAN-UP: Use the “Clean-up Resources” button in the app,
+#    wait for auto-cleanup, or run ./cleanup.sh when done.
 ```
 
-## Supported Models
+## 🧹 Resource Cleanup
 
-- **Llama-2 7B (default, reference)**
-- **Any public, compliant text-generation LLM** from HuggingFace—listed live in the UI dropdown, deployable with one click.
+We offer three ways to keep your cloud bill at zero:
+- **Automatic cleanup** — the infrastructure is destroyed after a period of inactivity
+- **In-app cleanup button** — click to delete everything
+- **Manual script** — each cloud folder includes a single-command cleanup script
 
-## License
+## 👩‍💻 For Potential Employers
 
-This project is licensed under the **MIT License**.  
-Free to use, modify, and distribute with attribution.
+- Demonstrates real-world, cloud-native MLOps skills (multi-cloud, IaC, production LLM ops, resource controls)
+- Modular, readable Terraform and app code
+- Complete and self-contained: setup, deploy, chat, teardown, all in minutes
 
-## Contributing
+## 📚 Documentation
 
-Issues, suggestions, and pull requests are welcome!
+- Each `/deployments/{provider}/` folder includes detailed instructions.
+- See [docs/architecture.md](docs/architecture.md) for deep dives on features, security, and best practices.
 
-## Acknowledgements
+## 📝 License
 
-- Meta AI (Llama-2)
-- HuggingFace
-- Streamlit
-- Google Cloud Platform—GKE, Artifact Registry, IAM, and Terraform modules
-- GCP MLOps and open-source AI communities
+MIT — see `LICENSE`
 
-*Build your own portable, fully GCP-native LLM inference stack—learn, customize, and deploy on Google Cloud with a single click, browse any public HuggingFace LLM, and start inferring instantly through a dynamic, interactive web UI!*
+**Build, serve, chat, and walk away—your cloud is always clean with llm-cloud-agnostic-k8s-terraform!**
